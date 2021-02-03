@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ittraining?serverTimezone=UTC&useLegacyDatetimeCode=false
     username: root
-    password: root
+    password: Sa05071992
 
   jpa:
     hibernate:
