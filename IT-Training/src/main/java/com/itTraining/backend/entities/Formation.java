@@ -1,10 +1,22 @@
 package com.itTraining.backend.entities;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+//import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+//import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +47,15 @@ public class Formation {
 	
 	@Column(name = "lien_test")
 	private String lienTest;
+	
+	//Jointure avec les sessions
+	@OneToMany(mappedBy = "formation")
+	private List<Session> sessions;
+	 
+	//Jointure avec les thèmes
+	@ManyToOne
+	@JoinColumn(name = "themes_id")
+	private Theme theme;
 
 	public Long getId() {
 		return id;
@@ -99,7 +120,21 @@ public class Formation {
 	public void setLienTest(String lienTest) {
 		this.lienTest = lienTest;
 	}
+
+	public List<Session> getSessions() { 
+		return sessions;
+	}
 	
+	public void setSessions(List<Session> sessions) { 
+		this.sessions = sessions; 
+	}
+
 	
-	
+	public Theme getTheme() {
+		return theme;
+	}
+
+	public void setTheme(Theme theme) {
+		this.theme = theme;
+	}
 }
