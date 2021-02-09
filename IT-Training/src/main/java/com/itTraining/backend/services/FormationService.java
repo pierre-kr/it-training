@@ -56,5 +56,9 @@ public class FormationService {
 		return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
+
 	
 }

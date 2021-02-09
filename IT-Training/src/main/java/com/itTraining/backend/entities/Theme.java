@@ -12,9 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "themes")
+@Table(name = "themes", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Theme {
 
 	@Id
@@ -35,7 +42,7 @@ public class Theme {
 
 	//Jointure avec les formations
 	@OneToMany(mappedBy = "theme")
-	private List<Formation> formations;
+	private List<Formation> formations = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
