@@ -27,6 +27,7 @@ public class Theme {
 	//Jointure entre themes
 	@OneToMany(mappedBy = "theme")
 	private List<Theme> themes;
+	
 	@ManyToOne
 	@JoinColumn(name = "themes_id")
 	private Theme theme;

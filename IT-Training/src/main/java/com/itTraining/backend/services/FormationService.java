@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.itTraining.backend.entities.Formation;
 import com.itTraining.backend.repositories.FormationRepository;
 
+@Service
 public class FormationService {
 	
 	@Autowired
