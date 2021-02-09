@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,11 @@ public class FormateurController {
 	@PostMapping("")
 	public Formateur save(@RequestBody Formateur entity) {
 		return service.save(entity);
+	}
+
+	@DeleteMapping("{id}")
+	public void deleteById(@PathVariable Long id) {
+		service.deleteById(id);
 	}
 
 	@GetMapping("")
