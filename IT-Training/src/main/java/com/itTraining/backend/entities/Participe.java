@@ -1,31 +1,37 @@
 package com.itTraining.backend.entities;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "participe")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Participe {
 
-	@EmbeddedId
-	private ParticipeKey id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
+	
 	@ManyToOne
-	@MapsId("sessionsId")
-	@JoinColumn(name = "sessions_id")
+	@JoinColumn(name = "sessions_id", referencedColumnName = "id")
 	private Session session;
 
+	
 	@ManyToOne
-	@MapsId("apprenantsId")
-	@JoinColumn(name = "apprenants_id")
+	@JoinColumn(name = "apprenants_id", referencedColumnName = "id")
 	private Apprenant apprenant;
-
 
 	@OneToOne
 	private Evaluation evaluation;
@@ -33,11 +39,11 @@ public class Participe {
 	@Column(name = "resultat_test")
 	private String resultatTest;
 	
-	public ParticipeKey getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(ParticipeKey id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
