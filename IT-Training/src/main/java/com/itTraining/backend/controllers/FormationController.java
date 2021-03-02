@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itTraining.backend.dtos.FormationSessionsDto;
 import com.itTraining.backend.entities.Formation;
 import com.itTraining.backend.services.FormationService;
 
@@ -35,7 +36,7 @@ public class FormationController {
 	}
 
 	@GetMapping("")
-	public List<Formation> findAll() {
+	public List<FormationSessionsDto> findAll() {
 		return service.findAll();
 	}
 

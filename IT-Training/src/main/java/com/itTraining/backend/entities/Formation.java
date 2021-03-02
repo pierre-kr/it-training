@@ -1,12 +1,15 @@
 package com.itTraining.backend.entities;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 //import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 //import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,9 +22,15 @@ import javax.persistence.OneToMany;
 //import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "formations")
-public class Formation {
+public class Formation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,12 +58,18 @@ public class Formation {
 	private String lienTest;
 	
 	//Jointure avec les sessions
-	@OneToMany(mappedBy = "formation")
+	//@OneToMany( mappedBy = "formation")
+	@OneToMany( mappedBy = "formation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Column(nullable = true)
+    @JsonManagedReference
 	private List<Session> sessions;
 	 
 	//Jointure avec les thèmes
-	@ManyToOne
-	@JoinColumn(name = "themes_id")
+	//@ManyToOne
+	//@JoinColumn(name = "themes_id")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="themes_id")
+    @JsonBackReference
 	private Theme theme;
 
 	public Long getId() {

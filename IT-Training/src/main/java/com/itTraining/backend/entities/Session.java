@@ -3,14 +3,20 @@ package com.itTraining.backend.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "sessions")
@@ -20,16 +26,29 @@ public class Session {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne
+	//@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="lieu_id")
+    @JsonBackReference
 	private Lieu lieu;
 	
-	@ManyToOne
+	//@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="formation_id")
+    @JsonBackReference
 	private Formation formation;
 	
-	@ManyToOne
+	//@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="formateur_id")
+    @JsonBackReference
 	private Formateur formateur;
 	
-	@OneToMany(mappedBy = "session")
+	//@OneToMany(mappedBy = "session")
+	
+	@OneToMany( mappedBy = "session", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Column(nullable = true)
+    @JsonManagedReference
     private List<Participe> participes;
 	
 	@Column(name="reference")
