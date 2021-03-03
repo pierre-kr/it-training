@@ -1,9 +1,7 @@
 package com.itTraining.backend.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -25,12 +22,10 @@ public class Participe {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	
 	@ManyToOne
 	@JoinColumn(name = "sessions_id", referencedColumnName = "id")
 	private Session session;
 
-	
 	@ManyToOne
 	@JoinColumn(name = "apprenants_id", referencedColumnName = "id")
 	private Apprenant apprenant;
@@ -80,8 +75,4 @@ public class Participe {
 	public void setResultatTest(String resultatTest) {
 		this.resultatTest = resultatTest;
 	}
-
-	
-	
-
 }
