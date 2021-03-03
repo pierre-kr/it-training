@@ -26,6 +26,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -58,18 +59,12 @@ public class Formation implements Serializable {
 	private String lienTest;
 	
 	//Jointure avec les sessions
-	//@OneToMany( mappedBy = "formation")
-	@OneToMany( mappedBy = "formation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@Column(nullable = true)
-    @JsonManagedReference
+	@OneToMany( mappedBy = "formation")
 	private List<Session> sessions;
 	 
 	//Jointure avec les thèmes
-	//@ManyToOne
-	//@JoinColumn(name = "themes_id")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="themes_id")
-    @JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "themes_id")
 	private Theme theme;
 
 	public Long getId() {
