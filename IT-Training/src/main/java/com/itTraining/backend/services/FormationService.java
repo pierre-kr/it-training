@@ -62,8 +62,14 @@ public class FormationService {
 		return repository.findByLienTest(lienTest);
 	}
 
-	public Formation findById(Long id) {
-		return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	
+	//.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	public FormationSessionsDto findById(Long id) {
+		if( !repository.findById(id).isPresent()) 
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		Formation formation =repository.findById(id).get();
+		return convertToFormationSession(formation);
 	}
 
 	public void deleteById(Long id) {

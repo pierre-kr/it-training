@@ -76,7 +76,7 @@ public class FormationController {
 	}
 
 	@GetMapping("{id}")
-	public Formation findById(@PathVariable Long id) {
+	public FormationSessionsDto findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 	

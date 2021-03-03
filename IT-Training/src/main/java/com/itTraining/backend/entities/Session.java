@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -26,29 +27,16 @@ public class Session {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	//@ManyToOne
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="lieu_id")
-    @JsonBackReference
+	@ManyToOne
 	private Lieu lieu;
 	
-	//@ManyToOne
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="formation_id")
-    @JsonBackReference
+	@ManyToOne
 	private Formation formation;
 	
-	//@ManyToOne
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="formateur_id")
-    @JsonBackReference
+	@ManyToOne
 	private Formateur formateur;
 	
-	//@OneToMany(mappedBy = "session")
-	
-	@OneToMany( mappedBy = "session", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@Column(nullable = true)
-    @JsonManagedReference
+	@OneToMany(mappedBy = "session")
     private List<Participe> participes;
 	
 	@Column(name="reference")
