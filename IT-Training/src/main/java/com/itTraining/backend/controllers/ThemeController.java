@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itTraining.backend.dtos.ThemeDto;
+import com.itTraining.backend.dtos.ThemeFormationsDto;
 import com.itTraining.backend.entities.Theme;
 import com.itTraining.backend.services.ThemeService;
 
@@ -34,7 +36,7 @@ public class ThemeController {
 	}
 
 	@GetMapping("")
-	public List<Theme> findAll() {
+	public List<ThemeDto> findAll() {
 		return service.findAll();
 	}
 	

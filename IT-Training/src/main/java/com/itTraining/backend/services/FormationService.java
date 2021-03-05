@@ -2,7 +2,6 @@ package com.itTraining.backend.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.itTraining.backend.dtos.FormationSessionsDto;
+import com.itTraining.backend.dtos.LieuDto;
 import com.itTraining.backend.dtos.SessionFormationDto;
 import com.itTraining.backend.entities.Formation;
+import com.itTraining.backend.entities.Lieu;
 import com.itTraining.backend.entities.Session;
 import com.itTraining.backend.repositories.FormationRepository;
 
@@ -26,8 +27,21 @@ public class FormationService {
 		return repository.save(entity);
 	}
 
-	public List<FormationSessionsDto> findAll() {
-		//return repository.findAll();
+	public Formation update(Formation entity, Long id) {
+		
+		Formation formation = repository.findById(id).get();
+		formation.setAudience(entity.getAudience());
+		formation.setContenu(entity.getContenu());
+		formation.setDescription(entity.getDescription());
+		formation.setLienTest(entity.getLienTest());
+		formation.setPrerequis(entity.getPrerequis());
+		formation.setReference(entity.getReference());
+		formation.setTitre(entity.getTitre());
+		formation.setTheme(entity.getTheme());
+		return repository.save(formation);
+	}
+	
+	public List<FormationSessionsDto> findAll() {	
 		return repository.findAll()
 				.stream()
 				.map(this::convertToFormationSession)
@@ -62,8 +76,6 @@ public class FormationService {
 		return repository.findByLienTest(lienTest);
 	}
 
-	
-	//.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	public FormationSessionsDto findById(Long id) {
 		if( !repository.findById(id).isPresent()) 
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -77,8 +89,10 @@ public class FormationService {
 	}
 
 	
+	
 	private FormationSessionsDto convertToFormationSession(Formation formation ) {
 		FormationSessionsDto formationSessionsDto = new FormationSessionsDto();
+		
 		formationSessionsDto.setId(formation.getId());
 		formationSessionsDto.setAudience(formation.getAudience());
 		formationSessionsDto.setContenu(formation.getContenu());
@@ -95,21 +109,33 @@ public class FormationService {
 	}
 
 	private List<SessionFormationDto> mapSession(Formation formation) {
-		List<SessionFormationDto> sessionDtos = new ArrayList<>();  
+		List<SessionFormationDto> sessionDtos = new ArrayList<>(); 
+		
 		for (Session session : formation.getSessions()) {
 			SessionFormationDto sessionDto = new SessionFormationDto();
 			sessionDto.setId(session.getId());
-			sessionDto.setDate_debut(session.getDateDebut());
-			sessionDto.setDate_fin(session.getDateFin());
+			sessionDto.setDateDebut(session.getDateDebut());
+			sessionDto.setDateFin(session.getDateFin());
 			sessionDto.setDuree(session.getDuree());
 			sessionDto.setValidationSession(session.isValide());
 			sessionDto.setPrix(session.getPrix());
 			sessionDto.setReference(session.getRefrence());
 			sessionDto.setSalle(session.getSalle());
 			sessionDto.setTypeSession(session.getType());
+			sessionDto.setLieu(mapLieu(session.getLieu()));
 			sessionDtos.add(sessionDto);
 		}
+		
 		return sessionDtos;
-	}
+	}	
 	
+	private LieuDto mapLieu(Lieu lieu) {
+		LieuDto lieuDto = new LieuDto();
+		lieuDto.setId(lieu.getId());
+		lieuDto.setCp(lieu.getCp());
+		lieuDto.setNum(lieu.getNum());
+		lieuDto.setRue(lieu.getRue());
+		lieuDto.setVille(lieu.getVille());
+		return lieuDto;
+	}
 }
