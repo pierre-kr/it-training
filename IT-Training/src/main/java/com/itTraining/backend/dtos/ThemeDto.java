@@ -13,4 +13,5 @@ public class ThemeDto {
 	private Long id;
 	private String nom;
 	private List<ThemeFormationsDto> formations = new ArrayList<>();
+	private Long idParent;
 }
