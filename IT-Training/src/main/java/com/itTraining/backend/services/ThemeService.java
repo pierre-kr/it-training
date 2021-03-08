@@ -56,6 +56,7 @@ public class ThemeService {
 		dto.setId(theme.getId());
 		dto.setNom(theme.getNom());
 		dto.setFormations(mapFormations(theme));
+		dto.setIdParent(theme.getTheme()!=null?theme.getTheme().getId():null);
 
 		return dto;
 	}
