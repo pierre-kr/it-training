@@ -55,6 +55,10 @@ public class FormateurService {
 	public Formateur findById(Long id) {
 		return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
+
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
 	
 	
 }

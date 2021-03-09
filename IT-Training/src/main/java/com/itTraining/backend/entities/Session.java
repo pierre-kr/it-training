@@ -151,5 +151,4 @@ public class Session {
 	public void setValide(boolean isValide) {
 		this.isValide = isValide;
 	}
-	
 }

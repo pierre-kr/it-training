@@ -4,13 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itTraining.backend.dtos.FormationSessionsDto;
 import com.itTraining.backend.entities.Formation;
 import com.itTraining.backend.services.FormationService;
 
@@ -28,8 +31,18 @@ public class FormationController {
 		return service.save(entity);
 	}
 
+	@PutMapping("{id}")
+	public Formation update(@RequestBody Formation entity,@PathVariable Long id) {
+		return service.update(entity,id);
+	}
+	
+	@DeleteMapping("{id}")
+	public void deleteById(@PathVariable Long id) {
+		service.deleteById(id);
+	}
+
 	@GetMapping("")
-	public List<Formation> findAll() {
+	public List<FormationSessionsDto> findAll() {
 		return service.findAll();
 	}
 
@@ -69,8 +82,8 @@ public class FormationController {
 	}
 
 	@GetMapping("{id}")
-	public Formation findById(@PathVariable Long id) {
+	public FormationSessionsDto findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
-
+	
 }
