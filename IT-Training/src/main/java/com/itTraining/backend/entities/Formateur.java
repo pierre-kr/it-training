@@ -9,9 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "formateurs")
+@Table(name = "formateurs", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Formateur {
 
 	@Id
@@ -40,7 +45,7 @@ public class Formateur {
 	private String tel;
 	
 	//Jointure avec les sessions
-	@OneToMany(mappedBy = "formation")
+	@OneToMany(mappedBy = "formateur")
 	private List<Session> sessions;
 
 	public Long getId() {
