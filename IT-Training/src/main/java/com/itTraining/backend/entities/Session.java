@@ -3,6 +3,7 @@ package com.itTraining.backend.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "sessions")
 public class Session {
@@ -20,7 +22,7 @@ public class Session {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Lieu lieu;
 	
 	@ManyToOne
