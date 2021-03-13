@@ -11,12 +11,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.itTraining.backend.dtos.ApprenantParticipesDto;
 import com.itTraining.backend.dtos.EvaluationParticipeDto;
+import com.itTraining.backend.dtos.FormateurSessionDto;
+import com.itTraining.backend.dtos.FormationSessionDto;
 import com.itTraining.backend.dtos.LieuDto;
 import com.itTraining.backend.dtos.ParticipeDto;
+import com.itTraining.backend.dtos.SessionDto;
 import com.itTraining.backend.dtos.SessionFormationDto;
 import com.itTraining.backend.dtos.SessionParticipesDto;
 import com.itTraining.backend.entities.Apprenant;
 import com.itTraining.backend.entities.Evaluation;
+import com.itTraining.backend.entities.Formateur;
 import com.itTraining.backend.entities.Formation;
 import com.itTraining.backend.entities.Lieu;
 import com.itTraining.backend.entities.Participe;
@@ -39,14 +43,14 @@ public class SessionService {
 	 * ResponseStatusException(HttpStatus.NOT_FOUND)); }
 	 */
 	
-	public List<SessionFormationDto> findAll() {
+	public List<SessionDto> findAll() {
 		return repository.findAll()
 				.stream()
 				.map(this::convertToSession)
 				.collect(Collectors.toList());
 	}
 
-	public SessionFormationDto findById(Long id) {
+	public SessionDto findById(Long id) {
 		if( !repository.findById(id).isPresent()) 
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
@@ -58,21 +62,24 @@ public class SessionService {
 		return repository.save(entity);
 	}
 	
-	private SessionFormationDto convertToSession(Session session) {
-		SessionFormationDto sessionFormationDto = new SessionFormationDto();
+	private SessionDto convertToSession(Session session) {
+		SessionDto sessionDto = new SessionDto();
 		
-		sessionFormationDto.setId(session.getId());
-		sessionFormationDto.setDateDebut(session.getDateDebut());
-		sessionFormationDto.setDateFin(session.getDateFin());
-		sessionFormationDto.setDuree(session.getDuree());
-		sessionFormationDto.setLieu(mapLieu(session.getLieu()));
-		sessionFormationDto.setPrix(session.getPrix());
-		sessionFormationDto.setReference(session.getRefrence());
-		sessionFormationDto.setSalle(session.getSalle());
-		sessionFormationDto.setTypeSession(session.getType());
-		sessionFormationDto.setValidationSession(session.isValide());
+		sessionDto.setId(session.getId());
+		sessionDto.setDateDebut(session.getDateDebut());
+		sessionDto.setDateFin(session.getDateFin());
+		sessionDto.setDuree(session.getDuree());
+		sessionDto.setLieu(mapLieu(session.getLieu()));
+		sessionDto.setPrix(session.getPrix());
+		sessionDto.setReference(session.getRefrence());
+		sessionDto.setSalle(session.getSalle());
+		sessionDto.setTypeSession(session.getType());
+		sessionDto.setValidationSession(session.isValide());
+		sessionDto.setFormateur(mapFormateur(session.getFormateur()));
+		sessionDto.setFormation(mapFormation(session.getFormation()));
 
-		return sessionFormationDto;
+
+		return sessionDto;
 	}
 //	
 //	private List<ParticipeDto> mapParticipe(Session session){
@@ -126,5 +133,29 @@ public class SessionService {
 		lieuDto.setRue(lieu.getRue());
 		lieuDto.setVille(lieu.getVille());
 		return lieuDto;
+	}
+	private FormateurSessionDto mapFormateur(Formateur formateur) {
+		FormateurSessionDto formateurSessionDto = new FormateurSessionDto();
+		formateurSessionDto.setId(formateur.getId());
+		formateurSessionDto.setPrenom(formateur.getPrenom());
+		formateurSessionDto.setNom(formateur.getNom());
+		formateurSessionDto.setCivilite(formateur.getCivilite());
+		formateurSessionDto.setEmail(formateur.getEmail());
+		formateurSessionDto.setEntreprise(formateur.getEntreprise());
+		formateurSessionDto.setFonction(formateur.getFonction());
+		formateurSessionDto.setTel(formateur.getTel());
+		return formateurSessionDto;
+	}
+	private FormationSessionDto mapFormation(Formation formation) {
+		FormationSessionDto formationSessionDto = new FormationSessionDto();
+		formationSessionDto.setId(formation.getId());
+		formationSessionDto.setTitre(formation.getTitre());
+		formationSessionDto.setContenu(formation.getContenu());
+		formationSessionDto.setAudience(formation.getAudience());
+		formationSessionDto.setDescription(formation.getDescription());
+		formationSessionDto.setLienTest(formation.getLienTest());
+		formationSessionDto.setPrerequis(formation.getPrerequis());
+		formationSessionDto.setReference(formation.getReference());
+		return formationSessionDto;
 	}
 }

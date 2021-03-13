@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.itTraining.backend.dtos.FormationSessionsDto;
+import com.itTraining.backend.dtos.FormationDto;
 import com.itTraining.backend.dtos.LieuDto;
 import com.itTraining.backend.dtos.SessionFormationDto;
 import com.itTraining.backend.entities.Formation;
@@ -41,7 +41,7 @@ public class FormationService {
 		return repository.save(formation);
 	}
 	
-	public List<FormationSessionsDto> findAll() {	
+	public List<FormationDto> findAll() {	
 		return repository.findAll()
 				.stream()
 				.map(this::convertToFormationSession)
@@ -76,7 +76,7 @@ public class FormationService {
 		return repository.findByLienTest(lienTest);
 	}
 
-	public FormationSessionsDto findById(Long id) {
+	public FormationDto findById(Long id) {
 		if( !repository.findById(id).isPresent()) 
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
@@ -90,8 +90,8 @@ public class FormationService {
 
 	
 	
-	private FormationSessionsDto convertToFormationSession(Formation formation ) {
-		FormationSessionsDto formationSessionsDto = new FormationSessionsDto();
+	private FormationDto convertToFormationSession(Formation formation ) {
+		FormationDto formationSessionsDto = new FormationDto();
 		
 		formationSessionsDto.setId(formation.getId());
 		formationSessionsDto.setAudience(formation.getAudience());
