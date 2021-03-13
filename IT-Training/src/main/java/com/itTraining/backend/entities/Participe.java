@@ -1,5 +1,8 @@
 package com.itTraining.backend.entities;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +18,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "participe")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-public class Participe {
+public class Participe implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +28,7 @@ public class Participe {
 	@JoinColumn(name = "sessions_id", referencedColumnName = "id")
 	private Session session;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "apprenants_id", referencedColumnName = "id")
 	private Apprenant apprenant;
 

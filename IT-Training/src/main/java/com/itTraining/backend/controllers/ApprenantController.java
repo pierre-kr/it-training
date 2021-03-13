@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itTraining.backend.dtos.ApprenantParticipesDto;
 import com.itTraining.backend.entities.Apprenant;
 import com.itTraining.backend.services.ApprenantService;
 

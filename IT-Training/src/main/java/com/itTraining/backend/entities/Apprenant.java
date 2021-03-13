@@ -1,7 +1,9 @@
 package com.itTraining.backend.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "apprenants")
-public class Apprenant {
+public class Apprenant  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +46,7 @@ public class Apprenant {
 	@OneToMany(mappedBy = "apprenant")
 	private List<Participe> participes;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "lieux_id")
 	private Lieu lieu;
 	
@@ -118,6 +120,14 @@ public class Apprenant {
 
 	public void setParticipes(List<Participe> participes) {
 		this.participes = participes;
+	}
+
+	public Lieu getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(Lieu lieu) {
+		this.lieu = lieu;
 	}
 	
 	

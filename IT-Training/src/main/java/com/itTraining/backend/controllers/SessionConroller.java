@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itTraining.backend.dtos.SessionFormationDto;
+import com.itTraining.backend.dtos.SessionParticipesDto;
 import com.itTraining.backend.entities.Session;
 import com.itTraining.backend.services.SessionService;
 
@@ -23,12 +25,12 @@ public class SessionConroller {
 	private SessionService service;
 
 	@GetMapping("")
-	public List<Session> findAll() {
+	public List<SessionFormationDto> findAll() {
 		return service.findAll();
 	}
 
 	@GetMapping("{id}")
-	public Session findById(@PathVariable Long id) {
+	public SessionFormationDto findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 
