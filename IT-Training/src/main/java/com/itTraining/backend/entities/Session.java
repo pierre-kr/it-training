@@ -1,5 +1,6 @@
 package com.itTraining.backend.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sessions")
-public class Session {
+public class Session implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -150,5 +151,13 @@ public class Session {
 
 	public void setValide(boolean isValide) {
 		this.isValide = isValide;
+	}
+
+	public List<Participe> getParticipes() {
+		return participes;
+	}
+
+	public void setParticipes(List<Participe> participes) {
+		this.participes = participes;
 	}
 }
