@@ -14,7 +14,7 @@ public class SessionDto {
 	private double prix;
 	private String reference;
 	private String salle;
-	private String typeSession;
+	private String type;
 	private LieuDto lieu;
 	private FormationSessionDto formation;
 	private FormateurSessionDto formateur;

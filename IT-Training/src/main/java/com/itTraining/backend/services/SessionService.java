@@ -73,7 +73,7 @@ public class SessionService {
 		sessionDto.setPrix(session.getPrix());
 		sessionDto.setReference(session.getRefrence());
 		sessionDto.setSalle(session.getSalle());
-		sessionDto.setTypeSession(session.getType());
+		sessionDto.setType(session.getType());
 		sessionDto.setValidationSession(session.isValide());
 		sessionDto.setFormateur(mapFormateur(session.getFormateur()));
 		sessionDto.setFormation(mapFormation(session.getFormation()));
@@ -135,6 +135,7 @@ public class SessionService {
 		return lieuDto;
 	}
 	private FormateurSessionDto mapFormateur(Formateur formateur) {
+		if(formateur == null) return null;
 		FormateurSessionDto formateurSessionDto = new FormateurSessionDto();
 		formateurSessionDto.setId(formateur.getId());
 		formateurSessionDto.setPrenom(formateur.getPrenom());
