@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class ApprenantController {
 	private ApprenantService service;
 
 	@GetMapping
-	public List<Apprenant> findAll(){
+	public List<ApprenantParticipesDto> findAll(){
 		return this.service.findAll();
 	}
 	@PostMapping
@@ -31,7 +32,7 @@ public class ApprenantController {
 		return this.service.save(entity);
 	}
 	@GetMapping("{id}")
-	public Apprenant findById(Long id) {
+	public ApprenantParticipesDto findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 
