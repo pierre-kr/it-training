@@ -31,49 +31,44 @@ public class ApprenantService {
 		return repository.save(entity);
 	}
 
-	public List<Apprenant> findAll() {
-		return repository.findAll();
+	/*
+	 * public List<Apprenant> findAll() { return repository.findAll(); }
+	 * 
+	 * public Apprenant findById(Long id){ return repository.findById(id)
+	 * .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND)); }
+	 */
+
+	public List<ApprenantParticipesDto> findAll() {
+		return repository.findAll()
+				.stream()
+				.map(this::convertToApprenantParticipe)
+				.collect(Collectors.toList());
 	}
 
-	public Apprenant findById(Long id){
-		return repository.findById(id)
-				.orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	
+	public ApprenantParticipesDto findById(Long id) {
+		if( !repository.findById(id).isPresent()) 
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		Apprenant apprenant = repository.findById(id).get();
+		return convertToApprenantParticipe(apprenant);
 	}
-
-//	public List<ApprenantParticipesDto> findAll() {
-//		return repository.findAll()
-//				.stream()
-//				.map(this::convertToApprenantParticipe)
-//				.collect(Collectors.toList());
-//	}
-//
-//	
-//	public ApprenantParticipesDto findById(Long id) {
-//		if( !repository.findById(id).isPresent()) 
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//		
-//		Apprenant apprenant = repository.findById(id).get();
-//		return convertToApprenantParticipe(apprenant);
-//	}
-//	
-//	private ApprenantParticipesDto convertToApprenantParticipe(Apprenant apprenant) {
-//		ApprenantParticipesDto apprenantParticipesDto = new ApprenantParticipesDto();
-//		
-//		apprenantParticipesDto.setAdresse(mapLieu(apprenant.getLieu()));
-//		apprenantParticipesDto.setCivilite(apprenant.getCivilite());
-//		apprenantParticipesDto.setEmail(apprenant.getEmail());
-//		apprenantParticipesDto.setFonction(apprenant.getFonction());
-//		apprenantParticipesDto.setId(apprenant.getId());
-//		apprenantParticipesDto.setNom(apprenant.getNom());
-//		apprenantParticipesDto.setPrenom(apprenant.getPrenom());
-//		apprenantParticipesDto.setSociete(apprenant.getSociete());
-//		apprenantParticipesDto.setTel(apprenant.getTel());
-//		
-//		List<ParticipeDto> participeDtos = mapParticipe(apprenant);
-//		
-//		apprenantParticipesDto.setParticipes(participeDtos);
-//		return apprenantParticipesDto;
-//	}
+	
+	private ApprenantParticipesDto convertToApprenantParticipe(Apprenant apprenant) {
+		ApprenantParticipesDto apprenantParticipesDto = new ApprenantParticipesDto();
+		
+		apprenantParticipesDto.setAdresse(mapLieu(apprenant.getLieu()));
+		apprenantParticipesDto.setCivilite(apprenant.getCivilite());
+		apprenantParticipesDto.setEmail(apprenant.getEmail());
+		apprenantParticipesDto.setFonction(apprenant.getFonction());
+		apprenantParticipesDto.setId(apprenant.getId());
+		apprenantParticipesDto.setNom(apprenant.getNom());
+		apprenantParticipesDto.setPrenom(apprenant.getPrenom());
+		apprenantParticipesDto.setSociete(apprenant.getSociete());
+		apprenantParticipesDto.setTel(apprenant.getTel());
+		
+		return apprenantParticipesDto;
+	}
 //	
 //	private List<ParticipeDto> mapParticipe(Apprenant apprenant){
 //		List<ParticipeDto> participeDtos = new ArrayList<>();
@@ -119,14 +114,14 @@ public class ApprenantService {
 //		return evaluationParticipeDto;
 //	}
 //	
-//	private LieuDto mapLieu(Lieu lieu) {
-//		LieuDto lieuDto = new LieuDto();
-//		lieuDto.setId(lieu.getId());
-//		lieuDto.setCp(lieu.getCp());
-//		lieuDto.setNum(lieu.getNum());
-//		lieuDto.setRue(lieu.getRue());
-//		lieuDto.setVille(lieu.getVille());
-//		return lieuDto;
-//	}
+	private LieuDto mapLieu(Lieu lieu) {
+		LieuDto lieuDto = new LieuDto();
+		lieuDto.setId(lieu.getId());
+		lieuDto.setCp(lieu.getCp());
+		lieuDto.setNum(lieu.getNum());
+		lieuDto.setRue(lieu.getRue());
+		lieuDto.setVille(lieu.getVille());
+		return lieuDto;
+	}
 	
 }
