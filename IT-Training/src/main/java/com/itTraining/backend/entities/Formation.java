@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,6 +29,7 @@ public class Formation implements Serializable {
 	@Column(name = "titre")
 	private String titre;
 	
+	@Lob
 	@Column(name = "description")
 	private String description;
 	
@@ -37,6 +39,7 @@ public class Formation implements Serializable {
 	@Column(name = "public")
 	private String audience;
 	
+	@Lob
 	@Column(name = "contenu")
 	private String contenu;
 	
