@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itTraining.backend.dtos.FormationSessionsDto;
+import com.itTraining.backend.dtos.FormationDto;
 import com.itTraining.backend.entities.Formation;
 import com.itTraining.backend.services.FormationService;
 
@@ -42,7 +42,7 @@ public class FormationController {
 	}
 
 	@GetMapping("")
-	public List<FormationSessionsDto> findAll() {
+	public List<FormationDto> findAll() {
 		return service.findAll();
 	}
 
@@ -82,7 +82,7 @@ public class FormationController {
 	}
 
 	@GetMapping("{id}")
-	public FormationSessionsDto findById(@PathVariable Long id) {
+	public FormationDto findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 	

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itTraining.backend.dtos.FormateurDto;
 import com.itTraining.backend.entities.Formateur;
 import com.itTraining.backend.services.FormateurService;
 
@@ -35,7 +36,7 @@ public class FormateurController {
 	}
 
 	@GetMapping("")
-	public List<Formateur> findAll() {
+	public List<FormateurDto> findAll() {
 		return service.findAll();
 	}
 
