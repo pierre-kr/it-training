@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itTraining.backend.dtos.EvaluationParticipeDto;
 import com.itTraining.backend.entities.Evaluation;
 import com.itTraining.backend.services.EvaluationService;
-
-
 
 @RestController
 @RequestMapping("evaluations")
@@ -24,7 +23,7 @@ public class EvaluationController {
 	private EvaluationService service;
 
 	@GetMapping
-	public List<Evaluation> findAll(){
+	public List<EvaluationParticipeDto> findAll(){
 		return this.service.findAll();
 	}
 	@PostMapping
@@ -32,7 +31,7 @@ public class EvaluationController {
 		return this.service.save(entity);
 	}
 	@GetMapping("{id}")
-	public Evaluation findById(Long id) {
+	public EvaluationParticipeDto findById(Long id) {
 		return service.findById(id);
 	}
 

@@ -27,16 +27,9 @@ public class ApprenantService {
 	@Autowired
 	private ApprenantRepository repository;
 
-	public <S extends Apprenant> S save(S entity) {
+	public Apprenant save(Apprenant entity) {
 		return repository.save(entity);
 	}
-
-	/*
-	 * public List<Apprenant> findAll() { return repository.findAll(); }
-	 * 
-	 * public Apprenant findById(Long id){ return repository.findById(id)
-	 * .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND)); }
-	 */
 
 	public List<ApprenantParticipesDto> findAll() {
 		return repository.findAll()
@@ -69,52 +62,11 @@ public class ApprenantService {
 		
 		return apprenantParticipesDto;
 	}
-//	
-//	private List<ParticipeDto> mapParticipe(Apprenant apprenant){
-//		List<ParticipeDto> participeDtos = new ArrayList<>();
-//		
-//		for (Participe participe : apprenant.getParticipes()) {
-//			ParticipeDto participeDto = new ParticipeDto();
-//			participeDto.setApprenant(mapApprenant(participe.getApprenant()));
-//			participeDto.setEvaluation(mapEvaluation(participe.getEvaluation()));
-//			participeDto.setId(participe.getId());
-//			participeDto.setResultatTest(participe.getResultatTest());
-//		}
-//		return participeDtos;
-//	}
-//	
-//	
-//	private ApprenantParticipesDto mapApprenant(Apprenant apprenant) {
-//		ApprenantParticipesDto apprenantParticipeDto = new ApprenantParticipesDto();
-//		apprenantParticipeDto.setId(apprenant.getId());
-//		apprenantParticipeDto.setNom(apprenant.getNom());
-//		apprenantParticipeDto.setAdresse(mapLieu(apprenant.getLieu()));
-//		apprenantParticipeDto.setCivilite(apprenant.getCivilite());
-//		apprenantParticipeDto.setEmail(apprenant.getEmail());
-//		apprenantParticipeDto.setFonction(apprenant.getFonction());
-//		apprenantParticipeDto.setPrenom(apprenant.getPrenom());
-//		apprenantParticipeDto.setSociete(apprenant.getSociete());
-//		apprenantParticipeDto.setTel(apprenant.getTel());
-//		return apprenantParticipeDto;
-//	}
-//	
-//	
-//	private EvaluationParticipeDto mapEvaluation(Evaluation evaluation) {
-//		EvaluationParticipeDto evaluationParticipeDto = new EvaluationParticipeDto();
-//		evaluationParticipeDto.setAccueil(evaluation.getAccueil());
-//		evaluationParticipeDto.setDisponibilite(evaluation.getDisponibilite());
-//		evaluationParticipeDto.setId(evaluation.getId());
-//		evaluationParticipeDto.setMachines(evaluation.getMachines());
-//		evaluationParticipeDto.setMaitriseDomaine(evaluation.getMaitriseDomaine());
-//		evaluationParticipeDto.setPedagogie(evaluation.getPedagogie());
-//		evaluationParticipeDto.setRepas(evaluation.getRepas());
-//		evaluationParticipeDto.setReponseAuxQuestion(evaluation.getReponseAuxQuestion());
-//		evaluationParticipeDto.setSalle(evaluation.getSalle());
-//		evaluationParticipeDto.setTechniqueAnimation(evaluation.getTechniqueAnimation());
-//		return evaluationParticipeDto;
-//	}
-//	
+
 	private LieuDto mapLieu(Lieu lieu) {
+		if (lieu == null) {
+			return null;
+		}
 		LieuDto lieuDto = new LieuDto();
 		lieuDto.setId(lieu.getId());
 		lieuDto.setCp(lieu.getCp());

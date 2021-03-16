@@ -28,7 +28,7 @@ public class Formation implements Serializable {
 	@Column(name = "titre")
 	private String titre;
 	
-	@Column(name = "description")
+	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
 	
 	@Column(name = "prerequis")
@@ -37,7 +37,7 @@ public class Formation implements Serializable {
 	@Column(name = "public")
 	private String audience;
 	
-	@Column(name = "contenu")
+	@Column(name = "contenu", columnDefinition = "TEXT")
 	private String contenu;
 	
 	@Column(name = "lien_test")

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.itTraining.backend.dtos.ApprenantParticipesDto;
+import com.itTraining.backend.dtos.EvaluationParticipeDto;
 import com.itTraining.backend.dtos.LieuDto;
 import com.itTraining.backend.dtos.ParticipeDto;
 import com.itTraining.backend.dtos.SessionParticipesDto;
@@ -25,7 +26,7 @@ public class ParticipeService {
 	@Autowired
 	private ParticipeRepository repository;
 
-	public <S extends Participe> S save(S entity) {
+	public Participe save(Participe entity) {
 		return repository.save(entity);
 	}
 
@@ -40,6 +41,8 @@ public class ParticipeService {
 		ParticipeDto participeDto = new ParticipeDto();
 		ApprenantParticipesDto apprenantParticipesDto = new ApprenantParticipesDto();
 		SessionParticipesDto sessionParticipesDto = new SessionParticipesDto();
+		EvaluationParticipeDto evaluationParticipeDto = new EvaluationParticipeDto();
+		
 		participeDto.setId(participe.getId());
 		
 		apprenantParticipesDto.setId(participe.getApprenant().getId());
@@ -62,6 +65,20 @@ public class ParticipeService {
 		sessionParticipesDto.setSalle(participe.getSession().getSalle());
 		sessionParticipesDto.setTypeSession(participe.getSession().getType());
 		sessionParticipesDto.setValidationSession(participe.getSession().isValide());
+		
+		if(participe.getEvaluation() != null) {
+			evaluationParticipeDto.setId(participe.getEvaluation().getId());
+			evaluationParticipeDto.setAccueil(participe.getEvaluation().getAccueil());
+			evaluationParticipeDto.setDisponibilite(participe.getEvaluation().getDisponibilite());
+			evaluationParticipeDto.setMachines(participe.getEvaluation().getMachines());
+			evaluationParticipeDto.setMaitriseDomaine(participe.getEvaluation().getMaitriseDomaine());
+			evaluationParticipeDto.setPedagogie(participe.getEvaluation().getPedagogie());
+			evaluationParticipeDto.setRepas(participe.getEvaluation().getRepas());
+			evaluationParticipeDto.setReponseAuxQuestion(participe.getEvaluation().getReponseAuxQuestion());
+			evaluationParticipeDto.setSalle(participe.getEvaluation().getSalle());
+			evaluationParticipeDto.setTechniqueAnimation(participe.getEvaluation().getTechniqueAnimation());
+			participeDto.setEvaluation(evaluationParticipeDto);
+		}
 
 		participeDto.setApprenant(apprenantParticipesDto);
 		participeDto.setSession(sessionParticipesDto);
@@ -90,6 +107,9 @@ public class ParticipeService {
 	}
 	
 	private LieuDto mapLieu(Lieu lieu) {
+		if (lieu == null) {
+			return null;
+		}
 		LieuDto lieuDto = new LieuDto();
 		lieuDto.setId(lieu.getId());
 		lieuDto.setCp(lieu.getCp());

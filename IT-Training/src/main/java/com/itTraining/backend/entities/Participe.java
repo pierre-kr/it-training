@@ -32,7 +32,8 @@ public class Participe implements Serializable{
 	@JoinColumn(name = "apprenants_id", referencedColumnName = "id")
 	private Apprenant apprenant;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "evaluation_id", referencedColumnName = "id")
 	private Evaluation evaluation;
 
 	@Column(name = "resultat_test")
