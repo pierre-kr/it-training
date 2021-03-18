@@ -30,7 +30,7 @@ public class Formation implements Serializable {
 	private String titre;
 	
 	@Lob
-	@Column(name = "description")
+	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
 	
 	@Column(name = "prerequis")
@@ -40,7 +40,7 @@ public class Formation implements Serializable {
 	private String audience;
 	
 	@Lob
-	@Column(name = "contenu")
+	@Column(name = "contenu", columnDefinition = "TEXT")
 	private String contenu;
 	
 	@Column(name = "lien_test")

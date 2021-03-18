@@ -37,9 +37,4 @@ public class ParticipeController {
 	public ParticipeDto findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "{sessionId}/{apprenantId}")
-	public ParticipeDto findByApprenantIdAndSessionId(@PathVariable(name = "sessionId") Long sessionId, @PathVariable(name = "apprenantId") Long apprenantId) {
-		return service.findByApprenantIdAndSessionId(apprenantId, sessionId);
-	}
 }

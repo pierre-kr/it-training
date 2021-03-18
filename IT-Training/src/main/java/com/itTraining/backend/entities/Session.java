@@ -53,7 +53,7 @@ public class Session implements Serializable{
 	@Column(name="type_session")
 	private String type;
 	
-	@Column(name="validation_session")
+	@Column(name="validation_session", columnDefinition = "TINYINT")
 	private boolean isValide ;
 	
 	@Column(name="salle")
